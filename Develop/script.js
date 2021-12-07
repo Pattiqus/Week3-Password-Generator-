@@ -18,10 +18,15 @@ function generatePassword() {
   var length = prompt("How long do you want your password");
   console.log(length);
 
-  isNaN()
+  while (isNaN(length) == true) {
+    var length = prompt("Please Input a Number between 8 & 128");
+    console.log(length);
 
-  if (length < 8 || length > 128) {
+  }
 
+  while (length < 8 || length > 128) {
+    var length = prompt("Please Input a Number between 8 & 128");
+    console.log(length);
   }
 
   var numberChar = confirm("Do you want numbers?")
