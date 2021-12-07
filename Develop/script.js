@@ -1,11 +1,16 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
-var numberChar = ["0","1","2","3","4","5","6","7","8","9"];
-var lowerChar = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-var upperChar = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-var specialChar = ["~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]","|","'","<",">",",","?",",","/"];
-var finalPassword = [""];
+// var numberChar = ["0","1","2","3","4","5","6","7","8","9"];
+// var lowerChar = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+// var upperChar = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+// var specialChar = ["~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]","|","'","<",">",",","?","/"];
+var numberChar = "123456789"
+    var lowerChar = "abcdefghijklmnopqrstuvwxyz"
+    var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    var specialChar = "!@#$%^&*()"
 
+var finalPassword = "";
+password="";
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
@@ -16,7 +21,7 @@ function writePassword() {
 }
 
 function generatePassword() {
-  var length = prompt("How long do you want your password");
+  var length = parseInt(prompt("How long do you want your password?"));
   console.log(length);
 
   while (isNaN(length) == true) {
@@ -32,7 +37,7 @@ function generatePassword() {
 
   var numberselect = confirm("Do you want numbers?")
   console.log(numberselect);
-  if (Response === true) {
+  if (numberselect) {
     finalPassword += numberChar;
   }
 
@@ -43,7 +48,8 @@ function generatePassword() {
 
   var lowerCharselect = confirm("Do you want lower case characters?")
   console.log(lowerCharselect);
-  if (Response === true) {
+  if (lowerCharselect) {
+    window.alert("Lower case characters will be included");
     finalPassword += lowerChar;
   }
 
@@ -53,7 +59,7 @@ function generatePassword() {
 
   var upperCharselect = confirm("Do you want upper case characters?")
   console.log(upperCharselect);
-  if (Response === true) {
+  if (upperCharselect) {
     finalPassword += upperChar;
   }
 
@@ -63,7 +69,7 @@ function generatePassword() {
 
   var specialCharselect = confirm("Do you want special characters?")
   console.log(specialCharselect);
-  if (Response === true) {
+  if (specialCharselect) {
     finalPassword += specialChar;
   }
 
@@ -72,18 +78,18 @@ function generatePassword() {
   }
 
   console.log(password)
-  if (password === "") {
+  if (specialCharselect === false && upperCharselect === false && lowerCharselect === false && numberselect === false) {
     window.alert("No character types selected, Password will not be created");
-    generatePassword();
+    return null;
   }
 
 for (i=0; i < length; i++) {
-  password += finalPassword[Math.floor(Math.random()*finalPassword.length)];
+  randomPassword =Math.floor(Math.random()*finalPassword.length);
+  password += finalPassword[randomPassword];
 }
 console.log(password);
 return password;
   
-  createPassword()
 
 }
 
