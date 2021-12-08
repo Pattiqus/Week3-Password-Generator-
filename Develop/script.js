@@ -1,174 +1,110 @@
 // Assignment Code
-var generateBtn = document.querySelector("#generate");
-// var numberChar = ["0","1","2","3","4","5","6","7","8","9"];
-// var lowerChar = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-// var upperChar = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-// var specialChar = ["~","`","!","@","#","$","%","^","&","*","(",")","_","-","+","=","{","[","}","]","|","'","<",">",",","?","/"];
-var numberChar = "123456789"
-    var lowerChar = "abcdefghijklmnopqrstuvwxyz"
-    var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    var specialChar = "!@#$%^&*()"
 
+// # Define: Password characters.
+var numberChar = "123456789";
+var lowerChar = "abcdefghijklmnopqrstuvwxyz";
+var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var specialChar = "!@#$%^&*()";
 
-// Write password to the #password input
+/**
+*    Function: writePassword
+*    Description: Used to write a given value to the front end #password element
+*
+*    @param {string} password - The password to write
+*    @return void
+*/
 var writePassword = function (password) {
-  // var password = generatePassword();
+  
+  // # Retreive: password text element
   var passwordText = document.querySelector("#password");
 
+  // # Set: write the passed in password to the element
   passwordText.value = password;
-  console.log(passwordText);
-  console.log(password);
+  
 };
 
-function generatePassword() {
-  // var length = parseInt(prompt("How long do you want your password?"));
-  // console.log(length);
-
-  // while (isNaN(length) == true) {
-  //   var length = prompt("Please Input a Number between 8 & 128");
-  //   console.log(length);
-
-  // }
-
-  // while (length < 8 || length > 128) {
-  //   var length = prompt("Please Input a Number between 8 & 128");
-  //   console.log(length);
-  // }
-
-  // var numberselect = confirm("Do you want numbers?")
-  // // console.log(numberselect);
-  // if (numberselect) {
-  //   // window.alert("Numbers will be included");
-  //   finalPassword += numberChar;
-  // }
-
-  // else {
-  //   window.alert("Numbers will not be included");
-
-  // }
-
-  // var lowerCharselect = confirm("Do you want lower case characters?")
-  // console.log(lowerCharselect);
-  // if (lowerCharselect) {
-  //   window.alert("Lower case characters will be included");
-  //   finalPassword += lowerChar;
-  // }
-
-  // else {
-  //   window.alert("Lower case characters will not be included");
-  // }
-
-  // var upperCharselect = confirm("Do you want upper case characters?")
-  // console.log(upperCharselect);
-  // if (upperCharselect) {
-  //   window.alert("Upper case characters will be included");
-  //   finalPassword += upperChar;
-  // }
-
-  // else {
-  //   window.alert("Upper case characters will not be included");
-  // }
-
-  // var specialCharselect = confirm("Do you want special characters?")
-  // console.log(specialCharselect);
-  // if (specialCharselect) {
-  //   window.alert("Special characters will be included");
-  //   finalPassword += specialChar;
-  // }
-
-  // else {
-  //   window.alert("Special characters will not be included");
-  // }
-
-  // console.log(password)
-  // if (specialCharselect === false && upperCharselect === false && lowerCharselect === false && numberselect === false) {
-  //   window.alert("No character types selected, Password will not be created");
-  //   return null;
-  // }
-
-  // for (i=0; i < length; i++) {
-  //   randomPassword =Math.floor(Math.random()*finalPassword.length);
-  //   password += finalPassword[randomPassword];
-  // }
-  // console.log(password);
-  // return password;
-  
-
-}
-
-// Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
-
-// ================================================================================================================
+/**
+ *    Function: passwordGenFunc
+ *    Description: Used to proccess form input to generate a password upon user   interaction.
+ * 
+ *    @param {Event} formSubmitEv - Browser event for form submission
+ *    @returns void
+ */
 var passwordGenFunc = function( formSubmitEv ) {
   
+  //  # Prevent: default browswer behaviour for the form
   formSubmitEv.preventDefault();
 
-  var hasErrors = false;
+  //  # Define: empty password variable to be filled
+  var charSet = "",
+      password = "";
 
-  var finalPassword = "",
-  password="";
-
+  //  # Retreive: form elements for processing
   var lengthSelEl = document.querySelector("#passwordLength");
-  var lengthSelVal = lengthSelEl.value;
-
   var numSelEl = document.querySelector("#numSel");
-  var numSelVal = numSelEl.checked;
-
   var lowerSelEl = document.querySelector("#lowerSel");
-  var lowerSelVal = lowerSelEl.checked;
-
   var upperSelEl = document.querySelector("#upperSel");
-  var upperSelVal = upperSelEl.checked;
-
   var specialSelEl = document.querySelector("#specialSel");
+ 
+  //  # Retreive: user input values 
+  var lengthSelVal = lengthSelEl.value;
+  var numSelVal = numSelEl.checked;
+  var lowerSelVal = lowerSelEl.checked;
+  var upperSelVal = upperSelEl.checked;
   var specialSelVal = specialSelEl.checked;
 
-  console.log("password length value: " + lengthSelVal);
-  console.log("number select status: " + numSelVal);
-  console.log("lower select status: " + lowerSelVal);
-  console.log("upper select status: " + upperSelVal);
-  console.log("special select status: " + specialSelVal);
+  //  # Debugging: Output values to console 
+  // console.log("password length value: " + lengthSelVal);
+  // console.log("number select status: " + numSelVal);
+  // console.log("lower select status: " + lowerSelVal);
+  // console.log("upper select status: " + upperSelVal);
+  // console.log("special select status: " + specialSelVal);
 
+  //  # Validate: user input for password length is a valid number
   if (isNaN(lengthSelVal)) {
     lengthSelEl.focus();
-    hasErrors = true;
     return;
   }
 
+  //  # Validate: user input is within accepted password length
   if (lengthSelVal < 8 || lengthSelVal > 128) {
     lengthSelEl.focus();
-    hasErrors = true;
     return;
   }
-  console.log("arrived")
-
+  
+  //  # Determine: whether or not to add numbers
   if (numSelVal) {
-    finalPassword += numberChar;
+    charSet += numberChar;
   }
-  console.log("arrived1")
 
+  //  # Determine: whether or not to add lower case characters
   if (lowerSelVal) {
-    finalPassword += lowerChar;
+    charSet += lowerChar;
   }
-  console.log("arrived2")
+
+  //  # Determine: whether or not to add upper case characters
   if (upperSelVal) {
-    finalPassword += upperChar;
+    charSet += upperChar;
   }
-  console.log("arrived3")
-
+  
+  //  # Determine: whether or not to add special characters
   if (specialSelVal) {
-    finalPassword += specialChar;
+    charSet += specialChar;
   }
-  console.log("arrived4")
+  
+  //  # Loop: based on password length and add random character from character set
   for (i=0; i < lengthSelVal; i++) {
-    randomPassword =Math.floor(Math.random()*finalPassword.length);
-    password += finalPassword[randomPassword];
+    randomCharSetIndex =Math.floor(Math.random()*charSet.length);
+    password += charSet[randomCharSetIndex];
   }
 
+  //  # Call: writing password function
   writePassword(password);
 
 };
 
+  //  # Retrieve: form element 
 var passwordGenForm = document.querySelector("#passwordGenForm");
+
+  //  # Bind: passwordGenFunc to submit event of the form element
 passwordGenForm.addEventListener("submit", passwordGenFunc);
