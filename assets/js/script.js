@@ -4,7 +4,7 @@
 var numberChar = "123456789";
 var lowerChar = "abcdefghijklmnopqrstuvwxyz";
 var upperChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var specialChar = "!@#$%^&*()";
+var specialChar = "~`!@#$%^&*()-_=+{}[]:',.<>?/";
 
 /**
 *    Function: writePassword
@@ -40,18 +40,18 @@ var passwordGenFunc = function( formSubmitEv ) {
       password = "";
 
   //  # Retreive: form elements for processing
-  var lengthSelEl = document.querySelector("#passwordLength");
-  var numSelEl = document.querySelector("#numSel");
-  var lowerSelEl = document.querySelector("#lowerSel");
-  var upperSelEl = document.querySelector("#upperSel");
-  var specialSelEl = document.querySelector("#specialSel");
+  var lengthSelInput = document.querySelector("#passwordLength");
+  var numSelInput = document.querySelector("#numSel");
+  var lowerSelInput = document.querySelector("#lowerSel");
+  var upperSelInput = document.querySelector("#upperSel");
+  var specialSelInput = document.querySelector("#specialSel");
  
   //  # Retreive: user input values 
-  var lengthSelVal = lengthSelEl.value;
-  var numSelVal = numSelEl.checked;
-  var lowerSelVal = lowerSelEl.checked;
-  var upperSelVal = upperSelEl.checked;
-  var specialSelVal = specialSelEl.checked;
+  var lengthSelVal = lengthSelInput.value;
+  var numSelVal = numSelInput.checked;
+  var lowerSelVal = lowerSelInput.checked;
+  var upperSelVal = upperSelInput.checked;
+  var specialSelVal = specialSelInput.checked;
 
   //  # Debugging: Output values to console 
   // console.log("password length value: " + lengthSelVal);
@@ -62,13 +62,13 @@ var passwordGenFunc = function( formSubmitEv ) {
 
   //  # Validate: user input for password length is a valid number
   if (isNaN(lengthSelVal)) {
-    lengthSelEl.focus();
+    lengthSelInput.focus();
     return;
   }
 
   //  # Validate: user input is within accepted password length
   if (lengthSelVal < 8 || lengthSelVal > 128) {
-    lengthSelEl.focus();
+    lengthSelInput.focus();
     return;
   }
   
